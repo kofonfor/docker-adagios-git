@@ -6,6 +6,9 @@ set -u
 # Supervisord default params
 SUPERVISOR_PARAMS='-c /etc/supervisord.conf'
 
+if [[ $NAGIOS_DEBUG_LEVEL ]]; then
+  sed -i "s|^debug_level=.*$|debug_level=$NAGIOS_DEBUG_LEVEL|g" /etc/nagios/nagios.cfg
+fi
 
 # Create directories for supervisor's UNIX socket and logs (which might be missing
 # as container might start with /data mounted from another data-container).
